@@ -1,3 +1,5 @@
+import generic from "./sidebar.js";
+
 export default function genMain() {
     const main = document.querySelector('.main');
 
@@ -7,7 +9,7 @@ export default function genMain() {
 
     const sidebarDiv = document.createElement('div');
     sidebarDiv.classList.add('sidebar');
-    sidebarDiv.textContent = 'sidebar';
+    generic(sidebarDiv);
 
     const content = document.createElement('div');
     content.classList.add('content');
