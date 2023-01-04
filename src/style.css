@@ -60,8 +60,21 @@ body {
     grid-template-columns: 215px min-content;
 }
 
-.projects {
-    height: 250px;
+#projects {
+    max-height: 150px;
+    border-left: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#projects > div {
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+#Projects, #projects {
+    cursor: auto;
 }
 
 .sidebar-button {

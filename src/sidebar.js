@@ -36,6 +36,11 @@ export default function generic(sidebar) {
     sidebarContent.appendChild(createNewTab('Today', true));
     sidebarContent.appendChild(createNewTab('Week', true));
     sidebarContent.appendChild(createNewTab('Projects', true));
+
+    const projects = document.createElement('div');
+    projects.id = 'projects';
+    sidebarContent.appendChild(projects);
+
     sidebarContent.appendChild(createNewTab('Notes', false));
 
     sidebar.appendChild(sidebarContent);    

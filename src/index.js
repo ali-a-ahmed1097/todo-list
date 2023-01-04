@@ -2,12 +2,11 @@ import './style.css';
 import genMain from './gen-main.js';
 
 const data = (() => {
-    let _projects = ['Home', 'Today', 'Week'];
+    let _projects = [];
 
     function addProject(projectName) {
-        const numberOfProjects = document.getElementById('Projects').querySelector('.notif');
         _projects.push(projectName);
-        numberOfProjects.textContent = (numberOfProjects.textContent - 0) + 1;
+        displayController.displayProjects();
     }
 
     function getProjects() {
@@ -20,6 +19,26 @@ const data = (() => {
     }
 })();
 
+const displayController = (() => {
+    function displayProjects() {
+        const projectsDiv = document.getElementById('projects');
+        const projects = data.getProjects();
+        projectsDiv.textContent = '';
+        projects.forEach((project, index) => {
+            const newDiv = document.createElement('div');
+            newDiv.textContent = project;
+            newDiv.id = index;
+            projectsDiv.appendChild(newDiv);
+        });
+
+        document.getElementById('Projects').querySelector('.notif').textContent = projects.length;
+    }
+
+    return {
+        displayProjects,
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', genMain);
 
 export function activateProjectBtn(btn) {
@@ -27,9 +46,7 @@ export function activateProjectBtn(btn) {
         const pName = document.querySelector('input').value;
         if (pName !== '') {
             data.addProject(pName);
-            console.log(data.getProjects());
             document.querySelector('.overlay').remove();
         }
-        
     });
 }
