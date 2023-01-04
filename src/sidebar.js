@@ -1,4 +1,5 @@
 import { createTodoOverlay, createProjectOverlay, createNoteOverlay } from "./overlay";
+import { displayController } from ".";
 
 function createNewTab(divName, notif) {
     const newDiv = document.createElement('div');
@@ -28,20 +29,34 @@ function createNewButton() {
     return btn;
 }
 
+function activateMainTabs(homeTab, todayTab, weekTab, notesTab) {
+    homeTab.addEventListener('click', () => displayController.displayTodos(homeTab.querySelector('div').textContent));
+    todayTab.addEventListener('click', () => displayController.displayTodos(todayTab.querySelector('div').textContent));
+    weekTab.addEventListener('click', () => displayController.displayTodos(weekTab.querySelector('div').textContent));
+    notesTab.addEventListener('click', () => displayController.displayNotes());
+}
+
 export default function generic(sidebar) {
     const sidebarContent = document.createElement('div');
     sidebarContent.classList.add('sidebar-content');
 
-    sidebarContent.appendChild(createNewTab('Home', true));
-    sidebarContent.appendChild(createNewTab('Today', true));
-    sidebarContent.appendChild(createNewTab('Week', true));
+    const homeTab = createNewTab('Home', true);
+    const todayTab = createNewTab('Today', true);
+    const weekTab = createNewTab('Week', true);
+    const notesTab = createNewTab('Notes', false);
+
+    activateMainTabs(homeTab, todayTab, weekTab, notesTab);
+
+    sidebarContent.appendChild(homeTab);
+    sidebarContent.appendChild(todayTab);
+    sidebarContent.appendChild(weekTab);
     sidebarContent.appendChild(createNewTab('Projects', true));
 
     const projects = document.createElement('div');
     projects.id = 'projects';
     sidebarContent.appendChild(projects);
 
-    sidebarContent.appendChild(createNewTab('Notes', false));
+    sidebarContent.appendChild(notesTab);
 
     sidebar.appendChild(sidebarContent);    
 

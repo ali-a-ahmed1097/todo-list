@@ -23,6 +23,7 @@ export function createProjectOverlay() {
     title.textContent = 'New Project';
     const pName = document.createElement('input');
     pName.setAttribute('type', 'text');
+    pName.setAttribute('maxlength', '20');
     const submitBtn = document.createElement('button');
     submitBtn.textContent = 'CREATE PROJECT';
 

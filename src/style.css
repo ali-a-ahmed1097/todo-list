@@ -34,8 +34,14 @@ body {
     justify-content: space-between;
 }
 
-.content {
+#content {
     background-color: white;
+}
+
+#content > div:first-of-type {
+    font-size: 30px;
+    border-bottom: 2px solid black;
+    margin: 0px 5px;
 }
 
 .notif {
