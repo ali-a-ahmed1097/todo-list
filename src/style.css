@@ -77,11 +77,29 @@ body {
     border: 0px;
     box-shadow: 1px 1px white, -1px -1px white, -1px 1px white, 1px -1px white;
 
-    margin-bottom: 40px;
-
     cursor: pointer;
 }
 
-.sidebar-content, .sidebar-button {
+.sidebar-bottom-div {
+    margin-bottom: 40px;
+
+    display: flex;
+    background-color: black;
+    border-radius: 25px;
+    height: fit-content;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.sidebar-bottom-div > div {
+    background-color: black;
+    color: white;
+    padding: 6px;
+    border-radius: 25px;
+    border-right: 2px solid blanchedalmond;
+    font-size: 25px;
+}
+
+.sidebar-content, .sidebar-bottom-div {
     margin-left: 30px;
 }

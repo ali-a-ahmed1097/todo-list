@@ -1,4 +1,3 @@
-
 function createNewTab(divName, notif) {
     const newDiv = document.createElement('div');
     newDiv.id = divName;
@@ -19,6 +18,14 @@ function createNewTab(divName, notif) {
     return newDiv;
 }
 
+function createNewButton() {
+    const btn = document.createElement('button');
+    btn.classList.add('sidebar-button');
+    btn.textContent = '+';
+    btn.addEventListener('click', enableBtn);
+    return btn;
+}
+
 export default function generic(sidebar) {
     const sidebarContent = document.createElement('div');
     sidebarContent.classList.add('sidebar-content');
@@ -29,12 +36,43 @@ export default function generic(sidebar) {
     sidebarContent.appendChild(createNewTab('Projects', true));
     sidebarContent.appendChild(createNewTab('Notes', false));
 
-    sidebar.appendChild(sidebarContent);
+    sidebar.appendChild(sidebarContent);    
 
+    const bottomDiv = document.createElement('div');
+    bottomDiv.classList.add('sidebar-bottom-div');
 
-    const newBtn = document.createElement('button');
-    newBtn.classList.add('sidebar-button');
-    newBtn.textContent = '+';
+    bottomDiv.appendChild(createNewButton());
+    sidebar.appendChild(bottomDiv);
+}
 
-    sidebar.appendChild(newBtn);
+function enableBtn() {
+    const div = document.querySelector('.sidebar-bottom-div');
+    div.querySelector('button').remove();
+    
+    const newTodo = document.createElement('div');
+    const newProject = document.createElement('div');
+    const newNote = document.createElement('div');
+
+    newTodo.textContent = 'To-Do';
+    newProject.textContent = 'Project';
+    newNote.textContent = 'Note';
+
+    newTodo.addEventListener('click', () => {
+        div.textContent = '';
+        div.appendChild(createNewButton());
+    });
+
+    newProject.addEventListener('click', () => {
+        div.textContent = '';
+        div.appendChild(createNewButton());
+    });
+
+    newNote.addEventListener('click', () => {
+        div.textContent = '';
+        div.appendChild(createNewButton());
+    });
+
+    div.appendChild(newTodo);
+    div.appendChild(newProject);
+    div.appendChild(newNote);
 }
