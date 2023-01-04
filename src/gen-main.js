@@ -5,7 +5,7 @@ export default function genMain() {
 
     const header = document.createElement('div');
     header.classList.add('header');
-    header.textContent = 'Todo List';
+    header.textContent = 'TO-DO LIST';
 
     const sidebarDiv = document.createElement('div');
     sidebarDiv.classList.add('sidebar');
