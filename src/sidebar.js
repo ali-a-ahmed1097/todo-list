@@ -1,3 +1,5 @@
+import { createTodoOverlay, createProjectOverlay, createNoteOverlay } from "./overlay";
+
 function createNewTab(divName, notif) {
     const newDiv = document.createElement('div');
     newDiv.id = divName;
@@ -60,16 +62,19 @@ function enableBtn() {
     newTodo.addEventListener('click', () => {
         div.textContent = '';
         div.appendChild(createNewButton());
+        createTodoOverlay();
     });
 
     newProject.addEventListener('click', () => {
         div.textContent = '';
         div.appendChild(createNewButton());
+        createProjectOverlay();
     });
 
     newNote.addEventListener('click', () => {
         div.textContent = '';
         div.appendChild(createNewButton());
+        createNoteOverlay();
     });
 
     div.appendChild(newTodo);
