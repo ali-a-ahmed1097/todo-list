@@ -13,7 +13,6 @@ export default function genMain() {
 
     const content = document.createElement('div');
     content.id = 'content';
-    content.textContent = 'content';
 
     main.appendChild(header);
     main.appendChild(sidebarDiv);

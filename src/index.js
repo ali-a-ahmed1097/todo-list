@@ -1,5 +1,6 @@
 import './style.css';
 import genMain from './gen-main.js';
+import { Note, Todo } from './content.js';
 
 const data = (() => {
     let _projects = [];
@@ -13,7 +14,9 @@ const data = (() => {
     function getProjects() { return _projects; }
 
     function addNote(noteTitle, noteContent) {
-        
+        const newNote = new Note(noteTitle, noteContent);
+        _notes.push(newNote);
+        console.log(_notes);
     }
 
     function getNotes() { return _notes; }
@@ -22,6 +25,7 @@ const data = (() => {
         addProject,
         getProjects,
         addNote,
+        getNotes,
     }
 })();
 
@@ -77,6 +81,15 @@ export function activateProjectBtn(btn) {
         else {
             console.log('Invalid project name!');
         }
+    });
+}
+
+export function activateNoteBtn(btn) {
+    btn.addEventListener('click', () => {
+        const noteTitle = document.querySelector('.t').value;
+        const noteContent = document.querySelector('.c').value;
+        data.addNote(noteTitle, noteContent);
+        document.querySelector('.overlay').remove();
     });
 }
 
