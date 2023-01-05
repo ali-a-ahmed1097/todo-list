@@ -133,3 +133,11 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+#content > div.note {
+    background-color: cornsilk;
+    width: 250px;
+    font-size: initial;
+    border: 0px;
+    margin: 0px;
+}

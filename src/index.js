@@ -62,6 +62,22 @@ export const displayController = (() => {
         contentBox.textContent = '';
         contentBox.classList = '';
         contentBox.classList.add('notes-content');
+
+        const noteArray = data.getNotes();
+        noteArray.forEach(note => {
+            const noteDiv = document.createElement('div');
+            const noteTitle = document.createElement('h2');
+            const noteContent = document.createElement('p');
+
+            noteDiv.classList.add('note');
+
+            noteTitle.textContent = note.getTitle();
+            noteContent.textContent = note.getNote();
+
+            noteDiv.appendChild(noteTitle);
+            noteDiv.appendChild(noteContent);
+            contentBox.appendChild(noteDiv);
+        })
     }
 
     return {
@@ -89,6 +105,7 @@ export function activateNoteBtn(btn) {
         const noteTitle = document.querySelector('.t').value;
         const noteContent = document.querySelector('.c').value;
         data.addNote(noteTitle, noteContent);
+        displayController.displayNotes();
         document.querySelector('.overlay').remove();
     });
 }
