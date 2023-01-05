@@ -1,4 +1,4 @@
-import { activateNoteBtn, activateProjectBtn } from ".";
+import { activateNoteBtn, activateProjectBtn, activateTodoButton } from ".";
 
 function createBlurOverlay() {
     const blurred = document.createElement('div');
@@ -29,18 +29,36 @@ export function createTodoOverlay() {
 
     const todoDate = document.createElement('input');
     todoDate.setAttribute('type', 'date');
+    todoDate.value = '2023-01-04';
     todoDate.classList.add('da');
+
+    const priority = document.createElement('div');
+    priority.textContent = 'Priority: Low';
 
     const range = document.createElement('input');
     range.setAttribute('type', 'range');
     range.setAttribute('value', '0');
     range.setAttribute('max', '2');
+    range.classList.add('r');
+
+    range.addEventListener('change', () => {
+        if (range.value === '0') priority.textContent = 'Priority: Low';
+        else if (range.value === '1') priority.textContent = 'Priority: Medium';
+        else if (range.value === '2') priority.textContent = 'Priority: High';
+    });
+
+    const submitBtn = document.createElement('button');
+    submitBtn.textContent = 'ADD TO-DO';
+
+    activateTodoButton(submitBtn);
 
     todoEntry.appendChild(title);
     todoEntry.appendChild(todoName);
     todoEntry.appendChild(todoDesc);
     todoEntry.appendChild(todoDate);
+    todoEntry.appendChild(priority);
     todoEntry.appendChild(range);
+    todoEntry.appendChild(submitBtn);
     document.querySelector('.overlay').appendChild(todoEntry);
 }
 

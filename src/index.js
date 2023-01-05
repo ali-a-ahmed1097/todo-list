@@ -5,28 +5,37 @@ import { Note, Todo } from './content.js';
 const data = (() => {
     let _projects = [];
     let _notes = [];
+    let _todos = [];
 
     function addProject(projectName) {
         _projects.push(projectName);
         displayController.displayProjects();
-    }
+    };
 
-    function getProjects() { return _projects; }
+    function getProjects() { return _projects; };
 
     function addNote(noteTitle, noteContent) {
         const newNote = new Note(noteTitle, noteContent);
         _notes.push(newNote);
-        console.log(_notes);
-    }
+    };
 
-    function getNotes() { return _notes; }
+    function getNotes() { return _notes; };
+
+    function addTodo(title, desc, priority, date, project) {
+        _todos.push(new Todo(title, desc, priority, date, project));
+        console.log(_todos);
+    };
+
+    function getTodos() { return _todos; };
 
     return {
         addProject,
         getProjects,
         addNote,
         getNotes,
-    }
+        addTodo,
+        getTodos,
+    };
 })();
 
 export const displayController = (() => {
@@ -43,7 +52,7 @@ export const displayController = (() => {
         });
 
         document.getElementById('Projects').querySelector('.notif').textContent = projects.length;
-    }
+    };
 
     function displayTodos(pName) {
         const contentBox = document.getElementById('content');
@@ -55,7 +64,7 @@ export const displayController = (() => {
         contentTitle.textContent = pName;
 
         contentBox.appendChild(contentTitle);
-    }
+    };
 
     function displayNotes() {
         const contentBox = document.getElementById('content');
@@ -78,13 +87,13 @@ export const displayController = (() => {
             noteDiv.appendChild(noteContent);
             contentBox.appendChild(noteDiv);
         })
-    }
+    };
 
     return {
         displayProjects,
         displayTodos,
         displayNotes,
-    }
+    };
 })();
 
 export function activateProjectBtn(btn) {
@@ -107,6 +116,25 @@ export function activateNoteBtn(btn) {
         data.addNote(noteTitle, noteContent);
         displayController.displayNotes();
         document.querySelector('.overlay').remove();
+    });
+}
+
+export function activateTodoButton(btn) {
+    btn.addEventListener('click', () => {
+        const todoName = document.querySelector('.n').value;
+        const todoDesc = document.querySelector('.d').value;
+        const todoDate = document.querySelector('.da').value;
+        const todoPriority = document.querySelector('.r').value;
+        let project = document.getElementById('content').querySelector('div');
+
+        if (project === null || project.classList.contains('note') || project.textContent === 'Today' || project.textContent === 'Week')
+            project = 'Home';
+        else project = project.textContent;
+        
+        if (todoName !== '' && todoDesc !== '') {
+            data.addTodo(todoName, todoDesc, todoDate, todoPriority, project);
+            document.querySelector('.overlay').remove();
+        }
     });
 }
 

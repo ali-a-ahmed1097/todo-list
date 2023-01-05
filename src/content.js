@@ -15,6 +15,7 @@ export class Todo {
         this._priority = priority;
         this._date = date;
         this._project = project;
+        this._completed = false;
     };
 
     getTitle() { return this._title; };
@@ -22,4 +23,6 @@ export class Todo {
     getPriority() { return this._priority; };
     getDate() { return this._date; };
     getProjectName() { return this._project; };
+    isCompleted() { return this._completed; };
+    setCompleted() { this._completed = !this._completed; };
 };
