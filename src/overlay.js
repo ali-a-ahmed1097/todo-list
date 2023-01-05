@@ -13,7 +13,35 @@ function createBlurOverlay() {
 
 export function createTodoOverlay() {
     createBlurOverlay();
-    console.log('todo');
+    const todoEntry = document.createElement('div');
+    const title = document.createElement('h1');
+    title.textContent = 'New To-Do';
+
+    const todoName = document.createElement('input');
+    todoName.setAttribute('type', 'text');
+    todoName.setAttribute('maxlength', '20');
+    todoName.classList.add('n');
+
+    const todoDesc = document.createElement('input');
+    todoDesc.setAttribute('type', 'text');
+    todoDesc.setAttribute('maxlength', '200');
+    todoDesc.classList.add('d');
+
+    const todoDate = document.createElement('input');
+    todoDate.setAttribute('type', 'date');
+    todoDate.classList.add('da');
+
+    const range = document.createElement('input');
+    range.setAttribute('type', 'range');
+    range.setAttribute('value', '0');
+    range.setAttribute('max', '2');
+
+    todoEntry.appendChild(title);
+    todoEntry.appendChild(todoName);
+    todoEntry.appendChild(todoDesc);
+    todoEntry.appendChild(todoDate);
+    todoEntry.appendChild(range);
+    document.querySelector('.overlay').appendChild(todoEntry);
 }
 
 export function createProjectOverlay() {
