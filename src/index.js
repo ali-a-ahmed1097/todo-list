@@ -23,10 +23,23 @@ const data = (() => {
 
     function addTodo(title, desc, priority, date, project) {
         _todos.push(new Todo(title, desc, priority, date, project));
-        console.log(_todos);
+        displayController.displayTodos(project);
     };
 
-    function getTodos() { return _todos; };
+    function getTodos(project) { 
+        let todos = [];
+        if (project === 'Home') {
+            todos = _todos;
+        } else if (project === 'Today') {
+
+        } else if (project === 'Week') {
+
+        } else {
+            _todos.forEach(todo => { if (todo.getProjectName() === project) todos.push(todo); });
+        }
+
+        return todos;
+    };
 
     return {
         addProject,
@@ -39,6 +52,21 @@ const data = (() => {
 })();
 
 export const displayController = (() => {
+
+    function _todoFormat(todo) {
+        const boxDiv = document.createElement('div');
+        const todoTitle = document.createElement('div');
+        todoTitle.textContent = todo.getTitle();
+
+        const todoDate = document.createElement('div');
+        todoDate.textContent = todo.getDate();
+
+        boxDiv.appendChild(todoTitle);
+        boxDiv.appendChild(todoDate);
+
+        return boxDiv;
+    }
+
     function displayProjects() {
         const projectsDiv = document.getElementById('projects');
         const projects = data.getProjects();
@@ -64,6 +92,8 @@ export const displayController = (() => {
         contentTitle.textContent = pName;
 
         contentBox.appendChild(contentTitle);
+
+        data.getTodos(pName).forEach(todo => contentBox.appendChild(_todoFormat(todo)));
     };
 
     function displayNotes() {
@@ -131,8 +161,8 @@ export function activateTodoButton(btn) {
             project = 'Home';
         else project = project.textContent;
         
-        if (todoName !== '' && todoDesc !== '') {
-            data.addTodo(todoName, todoDesc, todoDate, todoPriority, project);
+        if (todoName !== '') {
+            data.addTodo(todoName, todoDesc, todoPriority, todoDate, project);
             document.querySelector('.overlay').remove();
         }
     });

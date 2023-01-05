@@ -29,7 +29,7 @@ export function createTodoOverlay() {
 
     const todoDate = document.createElement('input');
     todoDate.setAttribute('type', 'date');
-    todoDate.value = '2023-01-04';
+    todoDate.value = '2023-01-05';
     todoDate.classList.add('da');
 
     const priority = document.createElement('div');
