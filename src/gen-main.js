@@ -1,4 +1,5 @@
 import generic from "./sidebar.js";
+import { displayController } from "./index.js";
 
 export default function genMain() {
     const main = document.querySelector('.main');
@@ -17,4 +18,6 @@ export default function genMain() {
     main.appendChild(header);
     main.appendChild(sidebarDiv);
     main.appendChild(content);
+
+    displayController.displayTodos(document.getElementById('Home').querySelector('div').textContent);
 }
