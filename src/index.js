@@ -1,6 +1,7 @@
 import './style.css';
 import genMain from './gen-main.js';
 import { Note, Todo } from './content.js';
+import { getCurrentDate } from './overlay.js';
 
 const data = (() => {
     let _projects = [];
@@ -31,9 +32,9 @@ const data = (() => {
         if (project === 'Home') {
             todos = _todos;
         } else if (project === 'Today') {
-
-        } else if (project === 'Week') {
-
+            _todos.forEach(todo => { if (todo.getDate() === getCurrentDate()) todos.push(todo); });
+        } else if (project === 'Month') {
+            _todos.forEach(todo => { if (todo.getDate()[5] === getCurrentDate()[5] && todo.getDate()[6] === getCurrentDate()[6]) todos.push(todo); });
         } else {
             _todos.forEach(todo => { if (todo.getProjectName() === project) todos.push(todo); });
         }
@@ -129,7 +130,7 @@ export const displayController = (() => {
 export function activateProjectBtn(btn) {
     btn.addEventListener('click', () => {
         const pName = document.querySelector('input').value;
-        if (pName !== '' && pName !== 'Home' && pName !== 'Today' && pName !== 'Week' && pName !== 'Notes' && pName != 'Projects') {
+        if (pName !== '' && pName !== 'Home' && pName !== 'Today' && pName !== 'Month' && pName !== 'Notes' && pName != 'Projects') {
             data.addProject(pName);
             document.querySelector('.overlay').remove();
         }
@@ -157,7 +158,7 @@ export function activateTodoButton(btn) {
         const todoPriority = document.querySelector('.r').value;
         let project = document.getElementById('content').querySelector('div');
 
-        if (project === null || project.classList.contains('note') || project.textContent === 'Today' || project.textContent === 'Week')
+        if (project === null || project.classList.contains('note') || project.textContent === 'Today' || project.textContent === 'Month')
             project = 'Home';
         else project = project.textContent;
         

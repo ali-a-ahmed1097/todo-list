@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/ali-a-ahmed1097/todo-list/issues"
   },
-  "homepage": "https://github.com/ali-a-ahmed1097/todo-list#readme"
+  "homepage": "https://github.com/ali-a-ahmed1097/todo-list#readme",
+  "dependencies": {
+    "date-fns": "^2.29.3"
+  }
 }

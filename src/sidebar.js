@@ -29,10 +29,10 @@ function createNewButton() {
     return btn;
 }
 
-function activateMainTabs(homeTab, todayTab, weekTab, notesTab) {
+function activateMainTabs(homeTab, todayTab, monthTab, notesTab) {
     homeTab.addEventListener('click', () => displayController.displayTodos(homeTab.querySelector('div').textContent));
     todayTab.addEventListener('click', () => displayController.displayTodos(todayTab.querySelector('div').textContent));
-    weekTab.addEventListener('click', () => displayController.displayTodos(weekTab.querySelector('div').textContent));
+    monthTab.addEventListener('click', () => displayController.displayTodos(monthTab.querySelector('div').textContent));
     notesTab.addEventListener('click', () => displayController.displayNotes());
 }
 
@@ -42,14 +42,14 @@ export default function generic(sidebar) {
 
     const homeTab = createNewTab('Home', true);
     const todayTab = createNewTab('Today', true);
-    const weekTab = createNewTab('Week', true);
+    const monthTab = createNewTab('Month', true);
     const notesTab = createNewTab('Notes', false);
 
-    activateMainTabs(homeTab, todayTab, weekTab, notesTab);
+    activateMainTabs(homeTab, todayTab, monthTab, notesTab);
 
     sidebarContent.appendChild(homeTab);
     sidebarContent.appendChild(todayTab);
-    sidebarContent.appendChild(weekTab);
+    sidebarContent.appendChild(monthTab);
     sidebarContent.appendChild(createNewTab('Projects', true));
 
     const projects = document.createElement('div');

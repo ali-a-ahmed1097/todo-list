@@ -1,4 +1,5 @@
 import { activateNoteBtn, activateProjectBtn, activateTodoButton } from ".";
+import format from "date-fns/format";
 
 function createBlurOverlay() {
     const blurred = document.createElement('div');
@@ -10,6 +11,11 @@ function createBlurOverlay() {
 
     document.querySelector('body').appendChild(blurred);
 };
+
+export function getCurrentDate() {
+    const date = new Date();
+    return format(new Date(date.getFullYear(), date.getMonth(), date.getDate()), 'yyyy-MM-dd');
+}
 
 export function createTodoOverlay() {
     createBlurOverlay();
@@ -29,7 +35,7 @@ export function createTodoOverlay() {
 
     const todoDate = document.createElement('input');
     todoDate.setAttribute('type', 'date');
-    todoDate.value = '2023-01-05';
+    todoDate.value = getCurrentDate();
     todoDate.classList.add('da');
 
     const priority = document.createElement('div');
