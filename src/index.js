@@ -20,6 +20,11 @@ const data = (() => {
         _notes.push(newNote);
     };
 
+    function removeNote(index) {
+        _notes.splice(index, 1);
+        displayController.displayNotes();
+    }
+
     function getNotes() { return _notes; };
 
     function addTodo(title, desc, priority, date, project) {
@@ -49,6 +54,7 @@ const data = (() => {
         getNotes,
         addTodo,
         getTodos,
+        removeNote,
     };
 })();
 
@@ -104,16 +110,21 @@ export const displayController = (() => {
         contentBox.classList.add('notes-content');
 
         const noteArray = data.getNotes();
-        noteArray.forEach(note => {
+        noteArray.forEach((note, index) => {
             const noteDiv = document.createElement('div');
+            const deleteDiv = document.createElement('div');
             const noteTitle = document.createElement('h2');
             const noteContent = document.createElement('p');
 
             noteDiv.classList.add('note');
 
+            deleteDiv.textContent = 'X';
+            deleteDiv.addEventListener('click', () => data.removeNote(index));
+
             noteTitle.textContent = note.getTitle();
             noteContent.textContent = note.getNote();
 
+            noteDiv.appendChild(deleteDiv);
             noteDiv.appendChild(noteTitle);
             noteDiv.appendChild(noteContent);
             contentBox.appendChild(noteDiv);

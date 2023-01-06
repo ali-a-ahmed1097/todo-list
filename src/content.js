@@ -16,6 +16,7 @@ export class Todo {
         this._date = date;
         this._project = project;
         this._completed = false;
+        this._id = Math.floor(Math.random() * Number.MAX_VALUE);
     };
 
     getTitle() { return this._title; };
@@ -25,4 +26,5 @@ export class Todo {
     getProjectName() { return this._project; };
     isCompleted() { return this._completed; };
     setCompleted() { this._completed = !this._completed; };
+    getId() { return this._id; };
 };
