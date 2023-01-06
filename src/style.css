@@ -134,10 +134,28 @@ body {
     align-items: center;
 }
 
-#content > div.note {
+#content > div > div.note {
     background-color: cornsilk;
     width: 250px;
     font-size: initial;
     border: 0px;
     margin: 0px;
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: 3px 3px;
+}
+
+#content.notes-content > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 40px;
+    border: 0px;
+}
+
+.notes-content {
+    display: grid;
+    grid-template-columns: 280px 280px 280px;
+    margin-left: 50px;
+    overflow: scroll;
 }

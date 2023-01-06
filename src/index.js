@@ -62,14 +62,30 @@ export const displayController = (() => {
 
     function _todoFormat(todo) {
         const boxDiv = document.createElement('div');
+        const checkbox = document.createElement('input');
+        checkbox.setAttribute('type', 'checkbox');
+
         const todoTitle = document.createElement('div');
         todoTitle.textContent = todo.getTitle();
+
+        const detBtn = document.createElement('button');
+        detBtn.textContent = 'Details';
 
         const todoDate = document.createElement('div');
         todoDate.textContent = todo.getDate();
 
+        const edtBtn = document.createElement('button');
+        edtBtn.textContent = 'Edit';
+
+        const deleteTodo = document.createElement('div');
+        deleteTodo.textContent = 'X';
+
+        boxDiv.appendChild(checkbox);
         boxDiv.appendChild(todoTitle);
+        boxDiv.appendChild(detBtn);
         boxDiv.appendChild(todoDate);
+        boxDiv.appendChild(edtBtn);
+        boxDiv.appendChild(deleteTodo);
 
         return boxDiv;
     }
@@ -109,6 +125,11 @@ export const displayController = (() => {
         contentBox.classList = '';
         contentBox.classList.add('notes-content');
 
+        const grid1 = document.createElement('div');
+        const grid2 = document.createElement('div');
+        const grid3 = document.createElement('div');
+        let cBox = grid1;
+
         const noteArray = data.getNotes();
         noteArray.forEach((note, index) => {
             const noteDiv = document.createElement('div');
@@ -124,11 +145,19 @@ export const displayController = (() => {
             noteTitle.textContent = note.getTitle();
             noteContent.textContent = note.getNote();
 
+            if (index % 3 === 0) cBox = grid1;
+            else if (index % 3 === 1) cBox = grid2;
+            else cBox = grid3;
+
             noteDiv.appendChild(deleteDiv);
             noteDiv.appendChild(noteTitle);
             noteDiv.appendChild(noteContent);
-            contentBox.appendChild(noteDiv);
-        })
+            cBox.appendChild(noteDiv);
+        });
+
+        contentBox.appendChild(grid1);
+        contentBox.appendChild(grid2);
+        contentBox.appendChild(grid3);
     };
 
     return {

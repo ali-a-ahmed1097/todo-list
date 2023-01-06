@@ -101,7 +101,6 @@ export function createNoteOverlay() {
 
     const nContent = document.createElement('input');
     nContent.setAttribute('type', 'text');
-    nContent.setAttribute('maxlength', '256');
     nContent.classList.add('c');
     
     const submitBtn = document.createElement('button');
