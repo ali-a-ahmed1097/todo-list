@@ -176,3 +176,8 @@ body {
     padding: 5px 10px;
     align-items: center;
 }
+
+.x {
+    cursor: pointer;
+    color: red;
+}

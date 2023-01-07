@@ -15,6 +15,13 @@ const data = (() => {
         displayController.displayProjects();
     };
 
+    function removeProject(project) {
+        _todos = _todos.filter(todo => todo.getProjectName() !== project);
+        _projects = _projects.filter(p => p !== project);
+        displayController.displayProjects();
+        displayController.displayTodos('Home');
+    }
+
     function getProjects() { return _projects; };
 
     function addNote(noteTitle, noteContent) {
@@ -61,6 +68,7 @@ const data = (() => {
 
     return {
         addProject,
+        removeProject,
         getProjects,
         addNote,
         getNotes,
@@ -99,7 +107,7 @@ export const displayController = (() => {
 
         const deleteTodo = document.createElement('div');
         deleteTodo.textContent = 'X';
-        deleteTodo.style = 'color: red; cursor: pointer;';
+        deleteTodo.classList.add('x');
         deleteTodo.addEventListener('click', () => { data.removeTodo(todo); });
 
         boxDiv.appendChild(checkbox);
@@ -137,6 +145,21 @@ export const displayController = (() => {
         const contentTitle = document.createElement('div');
         contentTitle.textContent = pName;
 
+        if (pName !== 'Home' && pName !== 'Today' && pName !== 'Week') {
+            contentTitle.textContent = '';
+
+            const prjTitle = document.createElement('div');
+            prjTitle.textContent = pName;
+
+            const deleteProject = document.createElement('div');
+            deleteProject.textContent = 'X';
+            deleteProject.classList.add('x');
+            deleteProject.addEventListener('click', () => { data.removeProject(pName); });
+
+            contentTitle.appendChild(prjTitle);
+            contentTitle.appendChild(deleteProject);
+        }
+
         contentBox.appendChild(contentTitle);
 
         data.getTodos(pName).forEach(todo => contentBox.appendChild(_todoFormat(todo)));
@@ -163,6 +186,7 @@ export const displayController = (() => {
             noteDiv.classList.add('note');
 
             deleteDiv.textContent = 'X';
+            deleteDiv.classList.add('x');
             deleteDiv.addEventListener('click', () => data.removeNote(index));
 
             noteTitle.textContent = note.getTitle();
