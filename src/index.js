@@ -1,7 +1,7 @@
 import './style.css';
 import genMain from './gen-main.js';
 import { Note, Todo } from './content.js';
-import { getCurrentDate } from './overlay.js';
+import { getCurrentDate, createTodoDetailsOverlay } from './overlay.js';
 
 const priorityColor = ['green', 'orange', 'red'];
 
@@ -100,12 +100,14 @@ export const displayController = (() => {
 
         const detBtn = document.createElement('button');
         detBtn.textContent = 'Details';
+        detBtn.addEventListener('click', () => { createTodoDetailsOverlay(todo); });
 
         const todoDate = document.createElement('div');
         todoDate.textContent = todo.getDate();
 
         const edtBtn = document.createElement('button');
         edtBtn.textContent = 'Edit';
+        
 
         const deleteTodo = document.createElement('div');
         deleteTodo.textContent = 'X';

@@ -1,5 +1,8 @@
 import { activateNoteBtn, activateProjectBtn, activateTodoButton } from ".";
+import { Todo } from "./content";
 import format from "date-fns/format";
+
+const priorities = ['Low', 'Medium', 'High'];
 
 function createBlurOverlay() {
     const blurred = document.createElement('div');
@@ -48,11 +51,7 @@ export function createTodoOverlay() {
     range.setAttribute('max', '2');
     range.classList.add('r');
 
-    range.addEventListener('change', () => {
-        if (range.value === '0') priority.textContent = 'Priority: Low';
-        else if (range.value === '1') priority.textContent = 'Priority: Medium';
-        else if (range.value === '2') priority.textContent = 'Priority: High';
-    });
+    range.addEventListener('change', () => { priority.textContent = `Priority: ${priorities[range.value]}`; });
 
     const submitBtn = document.createElement('button');
     submitBtn.textContent = 'ADD TO-DO';
@@ -119,4 +118,31 @@ export function createNoteOverlay() {
     newNote.appendChild(nContent);
     newNote.appendChild(submitBtn);
     document.querySelector('.overlay').appendChild(newNote);
+}
+
+export function createTodoDetailsOverlay(todo) {
+    createBlurOverlay();
+    const todoView = document.createElement('div');
+    const title = document.createElement('h1');
+    title.textContent = todo.getTitle();
+    
+    const project = document.createElement('div');
+    const prjB = document.createElement('b');
+    project.innerHTML = '<b>Project: </b>' + todo.getProjectName();
+
+    const todoDate = document.createElement('div');
+    todoDate.innerHTML = '<b>Due date: </b>' + todo.getDate();
+
+    const priority = document.createElement('div');
+    priority.innerHTML = `<b>Priority: </b>${priorities[todo.getPriority()]}`;
+
+    const todoDesc = document.createElement('div');
+    todoDesc.innerHTML = '<b>Description: </b>' + todo.getDesc();
+    
+    todoView.appendChild(title);
+    todoView.appendChild(project);
+    todoView.appendChild(todoDate);
+    todoView.appendChild(priority);
+    todoView.appendChild(todoDesc);
+    document.querySelector('.overlay').appendChild(todoView);
 }
