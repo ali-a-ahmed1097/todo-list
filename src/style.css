@@ -134,7 +134,7 @@ body {
     align-items: center;
 }
 
-#content > div > div.note {
+.note {
     background-color: cornsilk;
     width: 250px;
     font-size: initial;
@@ -158,4 +158,21 @@ body {
     grid-template-columns: 280px 280px 280px;
     margin-left: 50px;
     overflow: scroll;
+}
+
+.todo-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-around;
+    background-color: silver;
+    gap: 16px;
+    width: 97%;
+    align-self: center;
+    padding: 5px 10px;
+    align-items: center;
 }

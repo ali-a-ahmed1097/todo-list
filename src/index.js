@@ -3,6 +3,8 @@ import genMain from './gen-main.js';
 import { Note, Todo } from './content.js';
 import { getCurrentDate } from './overlay.js';
 
+const priorityColor = ['green', 'orange', 'red'];
+
 const data = (() => {
     let _projects = [];
     let _notes = [];
@@ -62,11 +64,18 @@ export const displayController = (() => {
 
     function _todoFormat(todo) {
         const boxDiv = document.createElement('div');
+        boxDiv.classList.add('todo-item');
+        boxDiv.style = `box-shadow: inset 5px 0px ${priorityColor[todo.getPriority()]};`;
+
         const checkbox = document.createElement('input');
         checkbox.setAttribute('type', 'checkbox');
 
         const todoTitle = document.createElement('div');
         todoTitle.textContent = todo.getTitle();
+        todoTitle.style = 'font-weight: bold;';
+
+        const paddingDiv = document.createElement('div');
+        paddingDiv.style = 'flex: 1;';
 
         const detBtn = document.createElement('button');
         detBtn.textContent = 'Details';
@@ -79,9 +88,11 @@ export const displayController = (() => {
 
         const deleteTodo = document.createElement('div');
         deleteTodo.textContent = 'X';
+        deleteTodo.style = 'color: red; cursor: pointer;';
 
         boxDiv.appendChild(checkbox);
         boxDiv.appendChild(todoTitle);
+        boxDiv.appendChild(paddingDiv);
         boxDiv.appendChild(detBtn);
         boxDiv.appendChild(todoDate);
         boxDiv.appendChild(edtBtn);
