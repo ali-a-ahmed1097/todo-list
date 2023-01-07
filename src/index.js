@@ -34,6 +34,16 @@ const data = (() => {
         displayController.displayTodos(project);
     };
 
+    function removeTodo(todo) {
+        _todos.forEach((t, i) => {
+            if (t.getId() === todo.getId()) {
+                _todos.splice(i, 1);
+                displayController.displayTodos(document.getElementById('content').querySelector('div').textContent);
+                return 0;
+            }
+        });
+    }
+
     function getTodos(project) { 
         let todos = [];
         if (project === 'Home') {
@@ -54,9 +64,10 @@ const data = (() => {
         getProjects,
         addNote,
         getNotes,
+        removeNote,
         addTodo,
         getTodos,
-        removeNote,
+        removeTodo,
     };
 })();
 
@@ -89,6 +100,7 @@ export const displayController = (() => {
         const deleteTodo = document.createElement('div');
         deleteTodo.textContent = 'X';
         deleteTodo.style = 'color: red; cursor: pointer;';
+        deleteTodo.addEventListener('click', () => { data.removeTodo(todo); });
 
         boxDiv.appendChild(checkbox);
         boxDiv.appendChild(todoTitle);
@@ -180,7 +192,7 @@ export const displayController = (() => {
 
 export function activateProjectBtn(btn) {
     btn.addEventListener('click', () => {
-        const pName = document.querySelector('input').value;
+        const pName = document.querySelector('input[type="text"]').value;
         if (pName !== '' && pName !== 'Home' && pName !== 'Today' && pName !== 'Month' && pName !== 'Notes' && pName != 'Projects') {
             data.addProject(pName);
             document.querySelector('.overlay').remove();
