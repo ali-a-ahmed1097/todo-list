@@ -1,7 +1,7 @@
 import './style.css';
 import genMain from './gen-main.js';
 import { Note, Todo } from './content.js';
-import { getCurrentDate, createTodoDetailsOverlay } from './overlay.js';
+import { getCurrentDate, createTodoDetailsOverlay, createTodoEditOverlay } from './overlay.js';
 
 const priorityColor = ['green', 'orange', 'red'];
 
@@ -32,13 +32,23 @@ const data = (() => {
     function removeNote(index) {
         _notes.splice(index, 1);
         displayController.displayNotes();
-    }
+    };
 
     function getNotes() { return _notes; };
 
     function addTodo(title, desc, priority, date, project) {
         _todos.push(new Todo(title, desc, priority, date, project));
         displayController.displayTodos(project);
+    };
+
+    function editTodo(id, title, desc, priority, date) {
+        _todos.forEach(todo => {
+            if (todo.getId() === id) {
+                todo.editTodo(title, desc, priority, date);
+                return 0;
+            }
+        });
+        
     };
 
     function removeTodo(todo) {
@@ -49,7 +59,7 @@ const data = (() => {
                 return 0;
             }
         });
-    }
+    };
 
     function getTodos(project) { 
         let todos = [];
@@ -74,6 +84,7 @@ const data = (() => {
         getNotes,
         removeNote,
         addTodo,
+        editTodo,
         getTodos,
         removeTodo,
     };
@@ -107,6 +118,7 @@ export const displayController = (() => {
 
         const edtBtn = document.createElement('button');
         edtBtn.textContent = 'Edit';
+        edtBtn.addEventListener('click', () => { createTodoEditOverlay(todo); });
         
 
         const deleteTodo = document.createElement('div');
@@ -242,23 +254,44 @@ export function activateNoteBtn(btn) {
     });
 }
 
+function getCurrentProject() {
+    let project = document.getElementById('content').querySelector('div');
+
+    if (project === null || project.classList.contains('note') || project.textContent === 'Home' || project.textContent === 'Today' || project.textContent === 'Month')
+        project = 'Home';
+    else project = project.querySelector('div').textContent;
+    return project;
+}
+
 export function activateTodoButton(btn) {
     btn.addEventListener('click', () => {
         const todoName = document.querySelector('.n').value;
         const todoDesc = document.querySelector('.d').value;
         const todoDate = document.querySelector('.da').value;
         const todoPriority = document.querySelector('.r').value;
-        let project = document.getElementById('content').querySelector('div');
-
-        if (project === null || project.classList.contains('note') || project.textContent === 'Home' || project.textContent === 'Today' || project.textContent === 'Month')
-            project = 'Home';
-        else project = project.querySelector('div').textContent;
+        
         
         if (todoName !== '') {
-            data.addTodo(todoName, todoDesc, todoPriority, todoDate, project);
+            data.addTodo(todoName, todoDesc, todoPriority, todoDate, getCurrentProject());
             document.querySelector('.overlay').remove();
         }
     });
 }
+
+export function activateEditTodoButton(btn, id) {
+    btn.addEventListener('click', () => {
+        const todoName = document.querySelector('.n').value;
+        const todoDesc = document.querySelector('.d').value;
+        const todoPriority = document.querySelector('.r').value;
+        const todoDate = document.querySelector('.da').value;
+
+        if (todoName !== '') {
+            data.editTodo(id, todoName, todoDesc, todoPriority, todoDate);
+            document.querySelector('.overlay').remove();
+            displayController.displayTodos(getCurrentProject());
+        }
+    });
+}
+
 
 document.addEventListener('DOMContentLoaded', genMain);

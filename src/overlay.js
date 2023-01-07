@@ -1,4 +1,4 @@
-import { activateNoteBtn, activateProjectBtn, activateTodoButton } from ".";
+import { activateNoteBtn, activateProjectBtn, activateTodoButton, activateEditTodoButton } from ".";
 import { Todo } from "./content";
 import format from "date-fns/format";
 
@@ -145,4 +145,55 @@ export function createTodoDetailsOverlay(todo) {
     todoView.appendChild(priority);
     todoView.appendChild(todoDesc);
     document.querySelector('.overlay').appendChild(todoView);
+}
+
+export function createTodoEditOverlay(todo) {
+    createBlurOverlay();
+    const todoEntry = document.createElement('div');
+    const title = document.createElement('h1');
+    title.textContent = 'Edit To-Do';
+
+    const todoName = document.createElement('input');
+    todoName.setAttribute('type', 'text');
+    todoName.setAttribute('maxlength', '20');
+    todoName.setAttribute('placeholder', 'To-Do');
+    todoName.classList.add('n');
+    todoName.value = todo.getTitle();
+
+    const todoDesc = document.createElement('textarea');
+    todoDesc.setAttribute('placeholder', 'Description (Optional)');
+    todoDesc.setAttribute('maxlength', '200');
+    todoDesc.classList.add('d');
+    todoDesc.value = todo.getDesc();
+
+    const todoDate = document.createElement('input');
+    todoDate.setAttribute('type', 'date');
+    todoDate.value = todo.getDate();
+    todoDate.classList.add('da');
+
+    const priority = document.createElement('div');
+    priority.textContent = `Priority: ${priorities[todo.getPriority()]}`;
+
+    const range = document.createElement('input');
+    range.setAttribute('type', 'range');
+    range.setAttribute('value', '0');
+    range.setAttribute('max', '2');
+    range.classList.add('r');
+    range.value = todo.getPriority();
+
+    range.addEventListener('change', () => { priority.textContent = `Priority: ${priorities[range.value]}`; });
+
+    const submitBtn = document.createElement('button');
+    submitBtn.textContent = 'EDIT TO-DO';
+
+    activateEditTodoButton(submitBtn, todo.getId());
+
+    todoEntry.appendChild(title);
+    todoEntry.appendChild(todoName);
+    todoEntry.appendChild(todoDesc);
+    todoEntry.appendChild(todoDate);
+    todoEntry.appendChild(priority);
+    todoEntry.appendChild(range);
+    todoEntry.appendChild(submitBtn);
+    document.querySelector('.overlay').appendChild(todoEntry);
 }

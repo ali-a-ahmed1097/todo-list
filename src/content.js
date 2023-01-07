@@ -27,4 +27,11 @@ export class Todo {
     isCompleted() { return this._completed; };
     setCompleted() { this._completed = !this._completed; };
     getId() { return this._id; };
+
+    editTodo(title, desc, priority, date) {
+        this._title = title;
+        this._desc = desc;
+        this._priority = priority;
+        this._date = date;
+    }
 };
