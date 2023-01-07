@@ -26,10 +26,11 @@ export function createTodoOverlay() {
     const todoName = document.createElement('input');
     todoName.setAttribute('type', 'text');
     todoName.setAttribute('maxlength', '20');
+    todoName.setAttribute('placeholder', 'To-Do');
     todoName.classList.add('n');
 
-    const todoDesc = document.createElement('input');
-    todoDesc.setAttribute('type', 'text');
+    const todoDesc = document.createElement('textarea');
+    todoDesc.setAttribute('placeholder', 'Description (Optional)');
     todoDesc.setAttribute('maxlength', '200');
     todoDesc.classList.add('d');
 
@@ -75,6 +76,7 @@ export function createProjectOverlay() {
     title.textContent = 'New Project';
     const pName = document.createElement('input');
     pName.setAttribute('type', 'text');
+    pName.setAttribute('placeholder', 'Name');
     pName.setAttribute('maxlength', '20');
     const submitBtn = document.createElement('button');
     submitBtn.textContent = 'CREATE PROJECT';
@@ -91,16 +93,20 @@ export function createNoteOverlay() {
     createBlurOverlay();
 
     const newNote = document.createElement('div');
+    newNote.classList.add('new-note');
+
     const title = document.createElement('h1');
     title.textContent = 'New Note';
 
     const nTitle = document.createElement('input');
     nTitle.setAttribute('type', 'text');
     nTitle.setAttribute('maxlength', '20');
+    nTitle.setAttribute('placeholder', 'Title');
     nTitle.classList.add('t');
 
-    const nContent = document.createElement('input');
+    const nContent = document.createElement('textarea');
     nContent.setAttribute('type', 'text');
+    nContent.setAttribute('placeholder', 'Note');
     nContent.classList.add('c');
     
     const submitBtn = document.createElement('button');

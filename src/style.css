@@ -180,4 +180,34 @@ body {
 .x {
     cursor: pointer;
     color: red;
+    width: fit-content;
+}
+
+.overlay > div {
+    background-color: springgreen;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding: 5px 10px;
+    gap: 4px;
+    box-shadow: -10px 10px black;
+    border-radius: 5px;
+}
+
+.new-note {
+    height: 250px;
+}
+
+textarea {
+    height: 200px;
+    resize: none;
+    font-family: inherit;
+}
+
+.overlay > div > button {
+    width: fit-content;
+}
+
+input[type="range"] {
+    width: 115px;
 }

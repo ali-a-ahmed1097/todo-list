@@ -5,7 +5,7 @@ export class Note {
     };
 
     getTitle() { return this._title; };
-    getNote() { return this._note; };
+    getNote() { console.log(this._note); return this._note; };
 };
 
 export class Todo {

@@ -88,6 +88,8 @@ export const displayController = (() => {
 
         const checkbox = document.createElement('input');
         checkbox.setAttribute('type', 'checkbox');
+        if (todo.isCompleted()) checkbox.setAttribute('checked', '');
+        checkbox.addEventListener('change', () => { todo.setCompleted(); });
 
         const todoTitle = document.createElement('div');
         todoTitle.textContent = todo.getTitle();
@@ -145,8 +147,9 @@ export const displayController = (() => {
         const contentTitle = document.createElement('div');
         contentTitle.textContent = pName;
 
-        if (pName !== 'Home' && pName !== 'Today' && pName !== 'Week') {
+        if (pName !== 'Home' && pName !== 'Today' && pName !== 'Month') {
             contentTitle.textContent = '';
+            contentTitle.style = "display: flex; justify-content: space-between;";
 
             const prjTitle = document.createElement('div');
             prjTitle.textContent = pName;
@@ -245,9 +248,9 @@ export function activateTodoButton(btn) {
         const todoPriority = document.querySelector('.r').value;
         let project = document.getElementById('content').querySelector('div');
 
-        if (project === null || project.classList.contains('note') || project.textContent === 'Today' || project.textContent === 'Month')
+        if (project === null || project.classList.contains('note') || project.textContent === 'Home' || project.textContent === 'Today' || project.textContent === 'Month')
             project = 'Home';
-        else project = project.textContent;
+        else project = project.querySelector('div').textContent;
         
         if (todoName !== '') {
             data.addTodo(todoName, todoDesc, todoPriority, todoDate, project);
